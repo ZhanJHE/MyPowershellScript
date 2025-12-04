@@ -1,0 +1,6 @@
+Read-Host " 执行完毕，按任意键退出。"
+Read-Host " 执行完毕，按任意键退出。"
+Read-Host " 执行完毕，按任意键退出。"
+Read-Host " 执行完毕，按任意键退出。"
+Read-Host " 执行完毕，按任意键退出。"
+Read-Host " 执行完毕，按任意键退出。"
