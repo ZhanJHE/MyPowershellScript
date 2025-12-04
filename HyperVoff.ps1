@@ -1,129 +1,143 @@
+<#
+ä½œè€…ï¼šZhanJH
+é‚®ç®±ï¼šmagic_211_cs@126.com
+Githubï¼šhttps://github.com/ZhanJHE
+è¿™ä¸ªè„šæœ¬æœ€æ—©æ˜¯ä¸ºäº†åº”ä»˜æš¨å¤§çš„æ ¡å›­ç½‘ï¼Œå‚»é€¼é”æ·æ ¡å›­ç½‘ç½‘ç»œè®¤è¯å®¢æˆ·ç«¯ä¼šæŠŠWindows HyperVè™šæ‹Ÿæœºè‡ªå¸¦çš„çš„HyperV Adapterç½‘å¡è¯†åˆ«æˆç‰©ç†ç½‘å¡ï¼Œä»è€Œå¯¼è‡´ç½‘ç»œè®¤è¯å¤±è´¥ã€‚
+é”æ·å®¢æˆ·ç«¯åšçš„å°±æ˜¯ä¸€å¨å±ï¼Œå¸Œæœ›æœ‰æœä¸€æ—¥èƒ½æ›´æ–°ä¸‹è¿™ä¸ªçƒ‚è½¯ä»¶ã€‚ï¼ˆå°±ç®—æŠŠå®¢æˆ·ç«¯å¼€æºäº†æ‰”GitHubä¸Šåº”è¯¥ä¹Ÿä¼šæœ‰é—²çš„æ²¡äº‹çš„å¤§å­¦ç”Ÿå¸®å¿™ç»´æŠ¤çš„å§ï¼Ÿç½‘ä¸Šé”æ·è·¯ç”±å™¨ç ´è§£æ•™ç¨‹ä¸€å¤§å †ï¼‰ 
+åœ¨æˆ‘çš„GitHubä¸Šæœ‰ä¸è¿™ä¸ªè„šæœ¬å¯¹åº”çš„å¿«é€Ÿæ¢å¤HyperVåŠŸèƒ½çš„è„šæœ¬ï¼Œåœ¨
+https://github.com/ZhanJHE/MyPowershellScript
+ä¸­çš„HyperVlaunch.ps1
+#>
+
+# åˆ‡æ¢å½“å‰æ§åˆ¶å°ä»£ç é¡µä¸º UTF-8ï¼Œé˜²æ­¢ä¸­æ–‡å­—ç¬¦ä¹±ç 
+chcp 65001 | Out-Null
+
 #Requires -RunAsAdministrator
 
-# ¼ì²éÊÇ·ñÒÔ¹ÜÀíÔ±È¨ÏŞÔËĞĞ
-# ´´½¨Ò»¸ö´ú±íµ±Ç°ÓÃ»§µÄ WindowsPrincipal ¶ÔÏó
+# æ£€æŸ¥æ˜¯å¦ä»¥ç®¡ç†å‘˜æƒé™è¿è¡Œ
+# åˆ›å»ºä¸€ä¸ªä»£è¡¨å½“å‰ç”¨æˆ·çš„ WindowsPrincipal å¯¹è±¡
 $currentUser = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
-# ¼ì²éµ±Ç°ÓÃ»§ÊÇ·ñÊôÓÚ¹ÜÀíÔ±½ÇÉ«
+# æ£€æŸ¥å½“å‰ç”¨æˆ·æ˜¯å¦å±äºç®¡ç†å‘˜è§’è‰²
 if (-not $currentUser.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    # Èç¹û²»ÊÇ¹ÜÀíÔ±£¬ÔòÊä³ö´íÎóĞÅÏ¢²¢ÍË³ö
-    Write-Error "´íÎó£ºÇëÒÔ¹ÜÀíÔ±Éí·İÔËĞĞ´Ë½Å±¾£¡"
-    Write-Host "ÓÒ¼üµã»÷½Å±¾ÎÄ¼ş£¬Ñ¡Ôñ¡°ÒÔ¹ÜÀíÔ±Éí·İÔËĞĞ¡±"
-    Read-Host "°´ÈÎÒâ¼üÍË³ö"
+    # å¦‚æœä¸æ˜¯ç®¡ç†å‘˜ï¼Œåˆ™è¾“å‡ºé”™è¯¯ä¿¡æ¯å¹¶é€€å‡º
+    Write-Error "é”™è¯¯ï¼šè¯·ä»¥ç®¡ç†å‘˜èº«ä»½è¿è¡Œæ­¤è„šæœ¬ï¼"
+    Write-Host "å³é”®ç‚¹å‡»è„šæœ¬æ–‡ä»¶ï¼Œé€‰æ‹©â€œä»¥ç®¡ç†å‘˜èº«ä»½è¿è¡Œâ€"
+    Read-Host "æŒ‰ä»»æ„é”®é€€å‡º"
     exit
 }
 
-# ´òÓ¡½Å±¾±êÌâ
+# æ‰“å°è„šæœ¬æ ‡é¢˜
 Write-Host "===============================================" -ForegroundColor Green
-Write-Host "  WindowsĞéÄâ»ú¹¦ÄÜ½ûÓÃ½Å±¾ (PowerShell)" -ForegroundColor Green
+Write-Host "  Windowsè™šæ‹ŸæœºåŠŸèƒ½ç¦ç”¨è„šæœ¬ (PowerShell)" -ForegroundColor Green
 Write-Host "===============================================" -ForegroundColor Green
 Write-Host ""
 
-# Ñ¯ÎÊÓÃ»§ÊÇ·ñÈ·ÈÏÖ´ĞĞ²Ù×÷
-$choice = Read-Host "È·¶¨Òª½ûÓÃWSL¡¢Hyper-VµÈĞéÄâ»ú¹¦ÄÜÂğ£¿(y/N)"
-# Èç¹ûÓÃ»§ÊäÈë²»ÊÇ 'y'£¬ÔòÈ¡Ïû²Ù×÷²¢ÍË³ö
+# è¯¢é—®ç”¨æˆ·æ˜¯å¦ç¡®è®¤æ‰§è¡Œæ“ä½œ
+$choice = Read-Host "ç¡®å®šè¦ç¦ç”¨WSLã€Hyper-Vç­‰è™šæ‹ŸæœºåŠŸèƒ½å—ï¼Ÿ(y/N)"
+# å¦‚æœç”¨æˆ·è¾“å…¥ä¸æ˜¯ 'y'ï¼Œåˆ™å–æ¶ˆæ“ä½œå¹¶é€€å‡º
 if ($choice -ne 'y') {
-    Write-Host "²Ù×÷ÒÑÈ¡Ïû¡£"
-    Read-Host "°´ÈÎÒâ¼üÍË³ö"
+    Write-Host "æ“ä½œå·²å–æ¶ˆã€‚"
+    Read-Host "æŒ‰ä»»æ„é”®é€€å‡º"
     exit
 }
 
 Write-Host ""
-Write-Host "¿ªÊ¼½ûÓÃĞéÄâ»úÏà¹Ø¹¦ÄÜ..." -ForegroundColor Yellow
+Write-Host "å¼€å§‹ç¦ç”¨è™šæ‹Ÿæœºç›¸å…³åŠŸèƒ½..." -ForegroundColor Yellow
 Write-Host "==============================================="
 
-# ¶¨ÒåĞèÒª½ûÓÃµÄ Windows ¹¦ÄÜÁĞ±í
+# å®šä¹‰éœ€è¦ç¦ç”¨çš„ Windows åŠŸèƒ½åˆ—è¡¨
 $features = @(
-    "Microsoft-Hyper-V-All",         # °üº¬ËùÓĞ Hyper-V Ïà¹Ø¹¦ÄÜ
-    "VirtualMachinePlatform",        # ĞéÄâ»úÆ½Ì¨
-    "Microsoft-Windows-Subsystem-Linux" # ÊÊÓÃÓÚ Linux µÄ Windows ×ÓÏµÍ³ (WSL)
+    "Microsoft-Hyper-V-All",         # åŒ…å«æ‰€æœ‰ Hyper-V ç›¸å…³åŠŸèƒ½
+    "VirtualMachinePlatform",        # è™šæ‹Ÿæœºå¹³å°
+    "Microsoft-Windows-Subsystem-Linux" # é€‚ç”¨äº Linux çš„ Windows å­ç³»ç»Ÿ (WSL)
 )
 
-# ±éÀú¹¦ÄÜÁĞ±í²¢Öğ¸ö½ûÓÃ
+# éå†åŠŸèƒ½åˆ—è¡¨å¹¶é€ä¸ªç¦ç”¨
 foreach ($feature in $features) {
-    Write-Host "ÕıÔÚ½ûÓÃ $feature..."
-    # »ñÈ¡Ö¸¶¨¹¦ÄÜµÄµ±Ç°×´Ì¬
+    Write-Host "æ­£åœ¨ç¦ç”¨ $feature..."
+    # è·å–æŒ‡å®šåŠŸèƒ½çš„å½“å‰çŠ¶æ€
     $featureState = Get-WindowsOptionalFeature -Online -FeatureName $feature
-    # Èç¹û¹¦ÄÜµ±Ç°ÊÇÆôÓÃµÄ
+    # å¦‚æœåŠŸèƒ½å½“å‰æ˜¯å¯ç”¨çš„
     if ($featureState.State -eq "Enabled") {
         try {
-            # ³¢ÊÔ½ûÓÃ¸Ã¹¦ÄÜ£¬-NoRestart ±íÊ¾²»×Ô¶¯ÖØÆô£¬-ErrorAction Stop ±íÊ¾Óöµ½´íÎóÊ±Í£Ö¹Ö´ĞĞ
+            # å°è¯•ç¦ç”¨è¯¥åŠŸèƒ½ï¼Œ-NoRestart è¡¨ç¤ºä¸è‡ªåŠ¨é‡å¯ï¼Œ-ErrorAction Stop è¡¨ç¤ºé‡åˆ°é”™è¯¯æ—¶åœæ­¢æ‰§è¡Œ
             Disable-WindowsOptionalFeature -Online -FeatureName $feature -NoRestart -ErrorAction Stop
-            Write-Host "  ³É¹¦½ûÓÃ $feature¡£" -ForegroundColor Green
+            Write-Host "  æˆåŠŸç¦ç”¨ $featureã€‚" -ForegroundColor Green
         } catch {
-            # Èç¹û½ûÓÃÊ§°Ü£¬ÔòÊä³ö¾¯¸æĞÅÏ¢
-            Write-Warning "  ½ûÓÃ $feature Ê§°Ü¡£"
+            # å¦‚æœç¦ç”¨å¤±è´¥ï¼Œåˆ™è¾“å‡ºè­¦å‘Šä¿¡æ¯
+            Write-Warning "  ç¦ç”¨ $feature å¤±è´¥ã€‚"
         }
     } else {
-        # Èç¹û¹¦ÄÜÒÑ¾­ÊÇ½ûÓÃ×´Ì¬£¬ÔòÌáÊ¾ÓÃ»§
-        Write-Host "  $feature ÒÑ¾­½ûÓÃ»òÎ´°²×°¡£" -ForegroundColor Cyan
+        # å¦‚æœåŠŸèƒ½å·²ç»æ˜¯ç¦ç”¨çŠ¶æ€ï¼Œåˆ™æç¤ºç”¨æˆ·
+        Write-Host "  $feature å·²ç»ç¦ç”¨æˆ–æœªå®‰è£…ã€‚" -ForegroundColor Cyan
     }
 }
 
-# ½ûÓÃ Hyper-V Ïà¹ØµÄĞéÄâÍøÂçÊÊÅäÆ÷
-Write-Host "ÕıÔÚ½ûÓÃ Hyper-V ĞéÄâÍøÂçÊÊÅäÆ÷..."
+# ç¦ç”¨ Hyper-V ç›¸å…³çš„è™šæ‹Ÿç½‘ç»œé€‚é…å™¨
+Write-Host "æ­£åœ¨ç¦ç”¨ Hyper-V è™šæ‹Ÿç½‘ç»œé€‚é…å™¨..."
 try {
-    # »ñÈ¡ËùÓĞ½Ó¿ÚÃèÊöÖĞ°üº¬ "Hyper-V" µÄÍøÂçÊÊÅäÆ÷
+    # è·å–æ‰€æœ‰æ¥å£æè¿°ä¸­åŒ…å« "Hyper-V" çš„ç½‘ç»œé€‚é…å™¨
     $hypervAdapters = Get-NetAdapter | Where-Object { $_.InterfaceDescription -like "*Hyper-V*" }
-    # Èç¹ûÕÒµ½ÁËÊÊÅäÆ÷
+    # å¦‚æœæ‰¾åˆ°äº†é€‚é…å™¨
     if ($hypervAdapters) {
-        # ½ûÓÃËùÓĞÕÒµ½µÄÊÊÅäÆ÷£¬-Confirm:$false ±íÊ¾²»ĞèÒªÓÃ»§È·ÈÏ
+        # ç¦ç”¨æ‰€æœ‰æ‰¾åˆ°çš„é€‚é…å™¨ï¼Œ-Confirm:$false è¡¨ç¤ºä¸éœ€è¦ç”¨æˆ·ç¡®è®¤
         $hypervAdapters | Disable-NetAdapter -Confirm:$false
-        Write-Host "  ÒÑ½ûÓÃÒÔÏÂ Hyper-V ÍøÂçÊÊÅäÆ÷:" -ForegroundColor Green
-        # ÁĞ³öËùÓĞ±»½ûÓÃµÄÊÊÅäÆ÷Ãû³Æ
+        Write-Host "  å·²ç¦ç”¨ä»¥ä¸‹ Hyper-V ç½‘ç»œé€‚é…å™¨:" -ForegroundColor Green
+        # åˆ—å‡ºæ‰€æœ‰è¢«ç¦ç”¨çš„é€‚é…å™¨åç§°
         $hypervAdapters.Name | ForEach-Object { Write-Host "    - $_" }
     } else {
-        # Èç¹ûÃ»ÓĞÕÒµ½£¬ÔòÌáÊ¾ÓÃ»§
-        Write-Host "  Î´ÕÒµ½»î¶¯µÄ Hyper-V ĞéÄâÍøÂçÊÊÅäÆ÷¡£" -ForegroundColor Cyan
+        # å¦‚æœæ²¡æœ‰æ‰¾åˆ°ï¼Œåˆ™æç¤ºç”¨æˆ·
+        Write-Host "  æœªæ‰¾åˆ°æ´»åŠ¨çš„ Hyper-V è™šæ‹Ÿç½‘ç»œé€‚é…å™¨ã€‚" -ForegroundColor Cyan
     }
 } catch {
-    # Èç¹û¹ı³ÌÖĞ³öÏÖ´íÎó£¬ÔòÊä³ö¾¯¸æ
-    Write-Warning "  ¼ì²é»ò½ûÓÃ Hyper-V ÍøÂçÊÊÅäÆ÷Ê±³ö´í¡£"
+    # å¦‚æœè¿‡ç¨‹ä¸­å‡ºç°é”™è¯¯ï¼Œåˆ™è¾“å‡ºè­¦å‘Š
+    Write-Warning "  æ£€æŸ¥æˆ–ç¦ç”¨ Hyper-V ç½‘ç»œé€‚é…å™¨æ—¶å‡ºé”™ã€‚"
 }
 
 
-# Ê¹ÓÃ bcdedit ÃüÁîĞŞ¸ÄÏµÍ³Æô¶¯ÅäÖÃ
-Write-Host "ÕıÔÚĞŞ¸Ä BCDEDIT Æô¶¯Ñ¡ÏîÒÔ³¹µ×½ûÓÃ Hypervisor..."
-# ¶¨ÒåĞèÒªĞŞ¸ÄµÄÆô¶¯ÏîºÍ¶ÔÓ¦µÄÖµ
+# ä½¿ç”¨ bcdedit å‘½ä»¤ä¿®æ”¹ç³»ç»Ÿå¯åŠ¨é…ç½®
+Write-Host "æ­£åœ¨ä¿®æ”¹ BCDEDIT å¯åŠ¨é€‰é¡¹ä»¥å½»åº•ç¦ç”¨ Hypervisor..."
+# å®šä¹‰éœ€è¦ä¿®æ”¹çš„å¯åŠ¨é¡¹å’Œå¯¹åº”çš„å€¼
 $bcdSettings = @{
-    "hypervisorlaunchtype" = "off";    # ¹Ø±Õ Hypervisor µÄÆô¶¯ÀàĞÍ
-    "{current} vsmlaunchtype" = "off"; # ¹Ø±Õ»ùÓÚĞéÄâ»¯µÄ°²È« (VBS)
-    "{current} vm" = "no";             # ½ûÓÃĞéÄâ»ú
+    "hypervisorlaunchtype" = "off";    # å…³é—­ Hypervisor çš„å¯åŠ¨ç±»å‹
+    "{current} vsmlaunchtype" = "off"; # å…³é—­åŸºäºè™šæ‹ŸåŒ–çš„å®‰å…¨ (VBS)
+    "{current} vm" = "no";             # ç¦ç”¨è™šæ‹Ÿæœº
 }
 
-# ±éÀú²¢Ó¦ÓÃÉèÖÃ
+# éå†å¹¶åº”ç”¨è®¾ç½®
 foreach ($setting in $bcdSettings.GetEnumerator()) {
-    Write-Host "  ÕıÔÚÉèÖÃ $($setting.Name) = $($setting.Value)..."
+    Write-Host "  æ­£åœ¨è®¾ç½® $($setting.Name) = $($setting.Value)..."
     try {
-        # Ö´ĞĞ bcdedit ÃüÁî
+        # æ‰§è¡Œ bcdedit å‘½ä»¤
         bcdedit /set $($setting.Name) $($setting.Value)
-        Write-Host "    ÉèÖÃ³É¹¦¡£" -ForegroundColor Green
+        Write-Host "    è®¾ç½®æˆåŠŸã€‚" -ForegroundColor Green
     } catch {
-        # Èç¹ûÉèÖÃÊ§°Ü£¬ÔòÊä³ö¾¯¸æ
-        Write-Warning "    ÉèÖÃ $($setting.Name) Ê§°Ü¡£"
+        # å¦‚æœè®¾ç½®å¤±è´¥ï¼Œåˆ™è¾“å‡ºè­¦å‘Š
+        Write-Warning "    è®¾ç½® $($setting.Name) å¤±è´¥ã€‚"
     }
 }
 
 
 Write-Host ""
 Write-Host "==============================================="
-Write-Host "ĞéÄâ»ú¹¦ÄÜ½ûÓÃÍê³É£¡" -ForegroundColor Green
+Write-Host "è™šæ‹ŸæœºåŠŸèƒ½ç¦ç”¨å®Œæˆï¼" -ForegroundColor Green
 Write-Host ""
-# ÏÔÊ¾µ±Ç°µÄ BCDEDIT ÅäÖÃ£¬ÒÔ±ãÓÃ»§È·ÈÏ
-Write-Host "µ±Ç° BCDEDIT ÖĞÓëĞéÄâ»¯Ïà¹ØµÄ²¿·ÖÅäÖÃ£º" -ForegroundColor Yellow
+# æ˜¾ç¤ºå½“å‰çš„ BCDEDIT é…ç½®ï¼Œä»¥ä¾¿ç”¨æˆ·ç¡®è®¤
+Write-Host "å½“å‰ BCDEDIT ä¸­ä¸è™šæ‹ŸåŒ–ç›¸å…³çš„éƒ¨åˆ†é…ç½®ï¼š" -ForegroundColor Yellow
 bcdedit | findstr /i "hypervisorlaunchtype vsmlaunchtype vm"
 Write-Host ""
-Write-Host "×¢Òâ£ºÒªÊ¹ËùÓĞ¸ü¸ÄÍêÈ«ÉúĞ§£¬ÄúĞèÒªÖØÆô¼ÆËã»ú¡£" -ForegroundColor Yellow
+Write-Host "æ³¨æ„ï¼šè¦ä½¿æ‰€æœ‰æ›´æ”¹å®Œå…¨ç”Ÿæ•ˆï¼Œæ‚¨éœ€è¦é‡å¯è®¡ç®—æœºã€‚" -ForegroundColor Yellow
 Write-Host ""
 
-# Ñ¯ÎÊÓÃ»§ÊÇ·ñÁ¢¼´ÖØÆô
-$restartChoice = Read-Host "ÊÇ·ñÁ¢¼´ÖØÆô¼ÆËã»ú£¿(y/N)"
+# è¯¢é—®ç”¨æˆ·æ˜¯å¦ç«‹å³é‡å¯
+$restartChoice = Read-Host "æ˜¯å¦ç«‹å³é‡å¯è®¡ç®—æœºï¼Ÿ(y/N)"
 if ($restartChoice -eq 'y') {
-    Write-Host "¼ÆËã»ú½«ÔÚ10ÃëºóÖØÆô..."
-    # Ö´ĞĞÖØÆôÃüÁî£¬/r ±íÊ¾ÖØÆô£¬/t 10 ±íÊ¾ÑÓ³Ù10Ãë
+    Write-Host "è®¡ç®—æœºå°†åœ¨10ç§’åé‡å¯..."
+    # æ‰§è¡Œé‡å¯å‘½ä»¤ï¼Œ/r è¡¨ç¤ºé‡å¯ï¼Œ/t 10 è¡¨ç¤ºå»¶è¿Ÿ10ç§’
     shutdown /r /t 10
 } else {
-    Write-Host "ÇëÊÖ¶¯ÖØÆô¼ÆËã»úÒÔÊ¹¸ü¸ÄÉúĞ§¡£"
+    Write-Host "è¯·æ‰‹åŠ¨é‡å¯è®¡ç®—æœºä»¥ä½¿æ›´æ”¹ç”Ÿæ•ˆã€‚"
 }
 
-# µÈ´ıÓÃ»§°´¼üºóÍË³ö½Å±¾
-Read-Host "°´ÈÎÒâ¼üÍË³ö"
+# ç­‰å¾…ç”¨æˆ·æŒ‰é”®åé€€å‡ºè„šæœ¬
+Read-Host "æŒ‰ä»»æ„é”®é€€å‡º"

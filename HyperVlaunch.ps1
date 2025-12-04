@@ -1,3 +1,19 @@
+
+
+<#
+作者：ZhanJH
+邮箱：magic_211_cs@126.com
+Github：https://github.com/ZhanJHE
+这个脚本最早是为了应付暨大的校园网，傻逼锐捷校园网网络认证客户端会把Windows HyperV虚拟机自带的的HyperV Adapter网卡识别成物理网卡，从而导致网络认证失败。
+锐捷客户端做的就是一坨屎，希望有朝一日能更新下这个烂软件。（就算把客户端开源了扔GitHub上应该也会有闲的没事的大学生帮忙维护的吧？网上锐捷路由器破解教程一大堆） 
+在我的GitHub上有与这个脚本对应的快速恢复HyperV功能的脚本，在
+https://github.com/ZhanJHE/MyPowershellScript
+中的HyperVlaunch.ps1
+#>
+
+# 切换当前控制台代码页为 UTF-8，防止中文字符乱码
+chcp 65001 | Out-Null
+
 #Requires -RunAsAdministrator
 
 # 检查是否以管理员权限运行
