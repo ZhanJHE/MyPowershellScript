@@ -39,13 +39,13 @@ if (-not (Test-Path -Path $ruijieApp) -or -not (Test-Path -Path $authComponent))
 }
 
 # 1. 将 8021.exe 强制重命名为 8021x.exe
-#    这通常是为了配合锐捷客户端主程序（RuijieSupplicant.exe）找到并执行这个文件。
+#    为了配合锐捷客户端主程序（RuijieSupplicant.exe）找到并执行这个文件。
 Write-Host "步骤 1: 正在强制重命名 '$authComponent'..."
 try {
     Rename-Item -Path $authComponent -NewName $tempAuthComponent -Force -ErrorAction Stop
     Write-Host "  重命名成功。" -ForegroundColor Green
 } catch {
-    Write-Warning "  重命名 '$authComponent' 失败。可能是文件正在被使用、权限不足或已重命名。"
+    Write-Warning "  重命名 '$authComponent' 失败。首次运行脚本时，命名失败是正常现象"
     Read-Host "按任意键退出"
     exit
 }
