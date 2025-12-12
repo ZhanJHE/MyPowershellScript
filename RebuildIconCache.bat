@@ -10,4 +10,5 @@ del /a /q "%USERPROFILE%\AppData\Local\Microsoft\Windows\Explorer\iconcache_*.db
 echo Starting Windows Explorer...
 start explorer.exe
 echo Icon cache has been rebuilt.
+echo Please manually refresh the Windows desktop.
 exit
