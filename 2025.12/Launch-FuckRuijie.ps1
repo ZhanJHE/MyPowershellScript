@@ -14,7 +14,9 @@ if (-not $currentUser.IsInRole([Security.Principal.WindowsBuiltInRole]::Administ
 Write-Host "启动器已获得管理员权限。" -ForegroundColor Green
 
 # 目标脚本的完整路径
-$targetScriptPath = "C:\Program Files\Ruijie Networks\Ruijie Supplicant\FuckRuijieClient.ps1"
+# 把这个目录改到你实际电脑上锐捷客户端的所在位置
+# 脚本详情看 https://github.com/ZhanJHE/MyPowershellScript/blob/main/2025.12/FuckRuijieClient.ps1 
+$targetScriptPath = "C:\Program Files\Ruijie Networks\Ruijie Supplicant\FuckRuijieClient.ps1" 
 
 Write-Host "准备执行目标脚本: $targetScriptPath"
 
